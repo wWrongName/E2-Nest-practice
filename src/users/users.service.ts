@@ -14,7 +14,7 @@ export class UsersService {
     }
 
     update(id: string, newData: User) {
-        let user = this.users.find(item => item.id === user.id)
+        let user = this.users.find(item => item.id === id)
         user = {...user, ...newData}
         return user
     }
