@@ -1,12 +1,16 @@
-import { Controller, Get, Post, Put, Patch, Delete, Body, Param } from '@nestjs/common'
+import {Controller, Get, Post, Put, Delete, Body, Param, Inject} from '@nestjs/common'
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersService } from './users.service';
+import { ClientProxy } from "@nestjs/microservices";
 
 
 @Controller('users')
 export class UsersController {
-    constructor(private userService: UsersService) {}
+    constructor(
+        private userService: UsersService,
+        @Inject("LOGS_SERVICE") private readonly client: ClientProxy
+    ) {}
 
     @Post()
     create(@Body() createUserDto: CreateUserDto) {
@@ -22,6 +26,8 @@ export class UsersController {
 
     @Get()
     findAll() {
+        this.client.emit<any>("info", "findAll method")
+
         let users = this.userService.findAll()
         return `Return list of users (amount: ${users.length})`
     }

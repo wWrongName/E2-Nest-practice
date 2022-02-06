@@ -5,11 +5,11 @@ import { GraphQLModule } from "@nestjs/graphql";
 
 @Module({
     imports: [
-        GraphQLModule.forRoot({
-            subscriptions : {
-                "graphql-ws": true
-            }
-        }),
+        // GraphQLModule.forRoot({
+        //     subscriptions : {
+        //         "graphql-ws": true
+        //     }
+        // }),
         UsersModule
     ]
 })
